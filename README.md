@@ -1,6 +1,6 @@
 # icecream_app
 
-A new Flutter project.
+Aplikacja do wyszukiwania lodów.
 
 ## Getting Started
 
