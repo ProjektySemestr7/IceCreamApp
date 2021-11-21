@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ice2/views/store_details.dart';
 
 class StoresList extends StatefulWidget {
   StoresList({Key? key}) : super(key: key);
@@ -36,13 +35,7 @@ class _StoresListState extends State<StoresList> {
                     children: snapshot.data!.docs.map((document) {
                       return Card(
                           child: ListTile(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      StoreDetails(storeId: document.id)));
-                        },
+                        onTap: () {},
                         title: Text(document.get("Name")),
                         subtitle: Text(document.get("City")),
                       ));
