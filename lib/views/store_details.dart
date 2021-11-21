@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ice2/components/store_info_bar.dart';
 
 class StoreDetails extends StatefulWidget {
   StoreDetails({Key? key, required this.storeId}) : super(key: key);
@@ -44,7 +43,6 @@ class _StoreDetailsState extends State<StoreDetails> {
                 }
               }),
         ),
-        StoreInfoBar(storeId: widget.storeId)
       ]),
     );
   }
