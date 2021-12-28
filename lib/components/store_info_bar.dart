@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ice2/views/map_view.dart';
 
 class StoreInfoBar extends StatelessWidget {
   const StoreInfoBar({Key? key, required this.storeId}) : super(key: key);
@@ -25,7 +26,7 @@ class StoreInfoBar extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          var xd = snapshot.data;
+          var snapshotData = snapshot.data;
 
           return Container(
             decoration: const BoxDecoration(color: Colors.lightGreen),
@@ -46,7 +47,14 @@ class StoreInfoBar extends StatelessWidget {
                   ],
                 ),
                 FloatingActionButton(
-                    onPressed: () {}, child: const Icon(Icons.navigation)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  MapView(defaultStoreId: snapshotData!.id)));
+                    },
+                    child: const Icon(Icons.navigation)),
               ],
             ),
           );
