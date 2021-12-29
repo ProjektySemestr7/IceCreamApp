@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ice2/components/app_drawer.dart';
 import 'package:ice2/views/store_details.dart';
 
 class MapView extends StatefulWidget {
@@ -81,6 +82,7 @@ class _MapViewState extends State<MapView> {
                   zoom: 15)),
         ),
       ),
+      drawer: AppDrawer(),
     );
   }
 }

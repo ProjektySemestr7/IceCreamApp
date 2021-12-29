@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ice2/components/app_drawer.dart';
 import 'package:ice2/views/store_details.dart';
 
 class StoresList extends StatefulWidget {
@@ -77,6 +78,7 @@ class _StoresListState extends State<StoresList> {
           ),
         ],
       ),
+      drawer: AppDrawer(),
     );
   }
 }
