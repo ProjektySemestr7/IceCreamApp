@@ -1,9 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ice2/storages/user_data.dart';
 import './views/stores_list.dart';
+import 'login/log_reg_screen.dart';
+import 'login/login_screen.dart';
+import 'login/register_screen.dart';
+
+UserData _userData = UserData();
+Widget _defaultHome = const LogRegScreen();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  bool? _result = await _userData.getLogged();
+  if (_result == true) {
+    _defaultHome = const StoresList();
+  }
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -15,20 +26,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.blue,
-        ),
-        home: StoresList());
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
+        primarySwatch: Colors.blue,
+      ),
+      home: _defaultHome,
+      routes: {
+        LogRegScreen.id: (context) => const LogRegScreen(),
+        LogInScreen.id: (context) => const LogInScreen(),
+        RegisterScreen.id: (context) => const RegisterScreen(),
+        StoresList.id: (context) => const StoresList()
+      },
+    );
   }
 }
 

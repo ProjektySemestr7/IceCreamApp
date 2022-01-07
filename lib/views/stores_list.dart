@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ice2/components/app_drawer.dart';
+import 'package:ice2/storages/user_data.dart';
 import 'package:ice2/views/store_details.dart';
 
 class StoresList extends StatefulWidget {
-  StoresList({Key? key}) : super(key: key);
+  const StoresList({Key? key}) : super(key: key);
+
+  static const String id = 'StoresList';
 
   @override
   _StoresListState createState() => _StoresListState();
@@ -12,6 +16,30 @@ class StoresList extends StatefulWidget {
 
 class _StoresListState extends State<StoresList> {
   String search = '';
+  final UserData _userData = UserData();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void tryLogin() async {
+    var email = await _userData.getEmail();
+    var password = await _userData.getPassword();
+
+    if (email != null && password != null) {
+      try {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+
+        print('Zalogowano');
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    tryLogin();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +52,7 @@ class _StoresListState extends State<StoresList> {
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Wpisz nazwę lodziarni, albo miejcowość')),
-              padding: const EdgeInsets.only(top: 50)),
+              padding: const EdgeInsets.only(top: 75)),
           Expanded(
             child: Container(
               decoration: const BoxDecoration(
