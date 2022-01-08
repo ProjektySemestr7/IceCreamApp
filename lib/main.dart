@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ice2/storages/user_data.dart';
+import 'package:ice2/views/user_stores.dart';
 import './views/stores_list.dart';
 import 'login/log_reg_screen.dart';
 import 'login/login_screen.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
         LogRegScreen.id: (context) => const LogRegScreen(),
         LogInScreen.id: (context) => const LogInScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
-        StoresList.id: (context) => const StoresList()
+        StoresList.id: (context) => const StoresList(),
+        UserStores.id: (context) => const UserStores(),
       },
     );
   }
