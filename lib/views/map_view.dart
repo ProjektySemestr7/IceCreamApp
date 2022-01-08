@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +11,7 @@ class MapView extends StatefulWidget {
   double defaultLatitude = 51.11153139321595;
   double defaultLongitude = 17.03886984229546;
   DocumentSnapshot<Map<String, dynamic>>? defaultStore;
+  static const String id = "MapView";
 
   @override
   _MapViewState createState() => _MapViewState();
@@ -82,7 +81,7 @@ class _MapViewState extends State<MapView> {
                   zoom: 15)),
         ),
       ),
-      drawer: AppDrawer(),
+      drawer: const AppDrawer(),
     );
   }
 }

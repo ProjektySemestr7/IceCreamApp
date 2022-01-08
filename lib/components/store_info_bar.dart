@@ -16,11 +16,11 @@ class StoreInfoBar extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return const Text("Something went wrong");
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
+          return const Text("Document does not exist");
         }
 
         if (snapshot.connectionState == ConnectionState.done) {

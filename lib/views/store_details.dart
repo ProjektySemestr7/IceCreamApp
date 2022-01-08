@@ -4,9 +4,9 @@ import 'package:ice2/components/app_drawer.dart';
 import 'package:ice2/components/store_info_bar.dart';
 
 class StoreDetails extends StatefulWidget {
-  StoreDetails({Key? key, required this.storeId}) : super(key: key);
+  const StoreDetails({Key? key, required this.storeId}) : super(key: key);
 
-  String storeId;
+  final String storeId;
 
   @override
   _StoreDetailsState createState() => _StoreDetailsState();
@@ -15,39 +15,43 @@ class StoreDetails extends StatefulWidget {
 class _StoreDetailsState extends State<StoreDetails> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(children: [
-        Expanded(
-          child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('Stores')
-                  .doc(widget.storeId)
-                  .collection("Icecreams")
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData ||
-                    snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return ListView(
-                    children: snapshot.data!.docs.map((document) {
-                      return Card(
-                          child: ListTile(
-                        title: Text(document.get("Name")),
-                        subtitle:
-                            Text(document.get("Price").toString() + " PLN"),
-                      ));
-                    }).toList(),
-                  );
-                }
-              }),
-        ),
-        StoreInfoBar(storeId: widget.storeId)
-      ]),
-      drawer: AppDrawer(),
+    return SafeArea(
+      child: Scaffold(
+        body: Column(children: [
+          Expanded(
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Stores')
+                    .doc(widget.storeId)
+                    .collection("Icecreams")
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData ||
+                      snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return ListView(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((document) {
+                        return Card(
+                            child: ListTile(
+                          title: Text(document.get("Name")),
+                          subtitle:
+                              Text(document.get("Price").toString() + " PLN"),
+                        ));
+                      }).toList(),
+                    );
+                  }
+                }),
+          ),
+          StoreInfoBar(storeId: widget.storeId)
+        ]),
+        drawer: const AppDrawer(),
+      ),
     );
   }
 }
